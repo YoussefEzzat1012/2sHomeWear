@@ -48,7 +48,6 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
-    // مسح بيانات المستخدم من Hive (أو SharedPreferences)
     final box = await Hive.openBox('auth_box');
     await box.clear();
   }

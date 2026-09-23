@@ -6,7 +6,6 @@ class SalesOrderRepository {
 
   SalesOrderRepository(this._apiClient);
 
-  // 1. جلب كافة أوامر البيع
   Future<List<SalesOrderModel>> getSalesOrders() async {
     final List result = await _apiClient.callKw(
       model: 'sale.order',
@@ -27,9 +26,7 @@ class SalesOrderRepository {
     return result.map((e) => SalesOrderModel.fromJson(e)).toList();
   }
 
-  // 2. جلب تفاصيل أسطر أمر البيع (Order Lines)
   Future<List<SalesOrderLineModel>> getSalesOrderLines(int orderId) async {
-    // جلب معرّفات الأسطر الخاصة بأمر البيع
     final List orderResult = await _apiClient.callKw(
       model: 'sale.order',
       method: 'search_read',
@@ -69,7 +66,6 @@ class SalesOrderRepository {
     return linesResult.map((e) => SalesOrderLineModel.fromJson(e)).toList();
   }
 
-  // 3. تأكيد أمر البيع (action_confirm)
   Future<bool> confirmSalesOrder(int orderId) async {
     final result = await _apiClient.callKw(
       model: 'sale.order',

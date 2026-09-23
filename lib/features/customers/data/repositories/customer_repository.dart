@@ -10,7 +10,6 @@ class CustomerRepository {
 
   CustomerRepository(this._apiClient);
 
-  // جلب العملاء مع دعم الـ Caching والـ Offline Fallback
   Future<List<CustomerModel>> getCustomers({bool isOnline = true}) async {
     final box = await Hive.openBox<CustomerModel>(customerBoxName);
 
@@ -30,27 +29,22 @@ class CustomerRepository {
 
         final customers = result.map((e) => CustomerModel.fromJson(e)).toList();
 
-        // تحديث التخزين المحلي
         await box.clear();
         for (var customer in customers) {
           await box.put(customer.id, customer);
         }
 
-        // إطلاق عملية المزامنة للتعديلات المعلقة إن وجدت
         _syncPendingUpdates();
 
         return customers;
       } catch (e) {
-        // في حال فشل الطلب بالرغم من وجود اتصال، نرجع البيانات المخزنة
         return box.values.toList();
       }
     } else {
-      // إرجاع البيانات من الكاش المحلي مباشرة
       return box.values.toList();
     }
   }
 
-  // تحديث رقم هاتف العميل
   Future<bool> updateCustomerPhone({
     required int partnerId,
     required String newPhone,
@@ -58,7 +52,6 @@ class CustomerRepository {
   }) async {
     final box = await Hive.openBox<CustomerModel>(customerBoxName);
 
-    // 1. تحديث التخزين المحلي فوراً (Optimistic UI Update)
     final cachedCustomer = box.get(partnerId);
     if (cachedCustomer != null) {
       final updatedCustomer = cachedCustomer.copyWith(phone: newPhone);
@@ -77,18 +70,15 @@ class CustomerRepository {
         );
         return success;
       } catch (e) {
-        // إذا فشل الطلب بالرغم من الاتصال، نضعها في الانتظار للمزامنة لاحقاً
         await PendingSyncQueue.addPendingUpdate(partnerId, newPhone);
         return false;
       }
     } else {
-      // حالة Offline: حفظ التعديل في قائمة الانتظار Sync Queue
       await PendingSyncQueue.addPendingUpdate(partnerId, newPhone);
       return true;
     }
   }
 
-  // مزامنة التعديلات المعلقة فور عودة الاتصال بالإنترنت
   Future<void> _syncPendingUpdates() async {
     final pendingUpdates = await PendingSyncQueue.getPendingUpdates();
     if (pendingUpdates.isEmpty) return;
@@ -110,7 +100,6 @@ class CustomerRepository {
           await PendingSyncQueue.removePendingUpdate(partnerId);
         }
       } catch (_) {
-        // الاستمرار ومحاولة المزامنة في المرة القادمة
       }
     }
   }

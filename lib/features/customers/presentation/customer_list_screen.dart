@@ -21,7 +21,6 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
   @override
   void initState() {
     super.initState();
-    // جلب البيانات مع الافتراض المبدئي لوجود اتصال (أو ربطه بـ connectivity_plus)
     context.read<CustomerCubit>().fetchCustomers(isOnline: true);
   }
 

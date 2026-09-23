@@ -17,7 +17,6 @@ class OdooApiClient {
           ),
         );
 
-  // تسجيل الدخول لحفظ الجلسة
   Future<Map<String, dynamic>> authenticate({
     required String db,
     required String login,
@@ -43,7 +42,6 @@ class OdooApiClient {
             data['error']['data']?['message'] ?? 'فشل تسجيل الدخول');
       }
 
-      // استخراج الـ Session Cookie وحفظها للطلبات القادمة
       final cookies = response.headers['set-cookie'];
       if (cookies != null && cookies.isNotEmpty) {
         _sessionId = cookies.first.split(';').first;
@@ -56,7 +54,6 @@ class OdooApiClient {
     }
   }
 
-  // دالة عامة لاستدعاء أساليب Odoo (call_kw)
   Future<dynamic> callKw({
     required String model,
     required String method,

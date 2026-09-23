@@ -41,7 +41,6 @@ class SalesOrderCubit extends Cubit<SalesOrderState> {
 
   SalesOrderCubit(this._repository) : super(SalesOrderInitial());
 
-  // جلب قائمة أوامر البيع
   Future<void> fetchSalesOrders() async {
     emit(SalesOrderLoading());
     try {
@@ -52,7 +51,6 @@ class SalesOrderCubit extends Cubit<SalesOrderState> {
     }
   }
 
-  // جلب تفاصيل طلب محدد وإصدار حالة التفاصيل
   Future<void> fetchOrderDetails(SalesOrderModel order) async {
     emit(SalesOrderLoading());
     try {
@@ -64,14 +62,12 @@ class SalesOrderCubit extends Cubit<SalesOrderState> {
     }
   }
 
-  // تأكيد أمر البيع (تحويله من draft -> sale)
   Future<void> confirmOrder(int orderId) async {
     emit(SalesOrderConfirming());
     try {
       final success = await _repository.confirmSalesOrder(orderId);
       if (success) {
         emit(SalesOrderConfirmSuccess(orderId));
-        // إعادة تحديث القائمة بعد التأكيد
         await fetchSalesOrders();
       } else {
         emit(SalesOrderError("لم يتسنّ تأكيد الطلب، تحقق من صلاحياتك"));
