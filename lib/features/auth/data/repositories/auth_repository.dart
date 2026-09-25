@@ -34,15 +34,14 @@ class AuthRepository {
   /// by checking read access on Odoo sales orders.
   Future<bool> _checkIfInternalUser() async {
     try {
-      final bool hasSalesAccess = await _apiClient.callKw(
-        model: 'sale.order',
-        method: 'check_access_rights',
-        args: ['read'],
-        kwargs: {'raise_exception': false},
+      final bool isInternal = await _apiClient.callKw(
+        model: 'res.users',
+        method: 'has_group',
+        args: ['base.group_user'],
       );
-      return hasSalesAccess;
+
+      return isInternal;
     } catch (_) {
-      // Fallback: If access check throws an unhandled RPC error, assume false
       return false;
     }
   }
