@@ -1,5 +1,5 @@
 class UserModel {
-  final int uid;
+  final int? uid;
   final String name;
   final String username;
   final bool isInternalUser;
@@ -12,13 +12,15 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    final userContext = json['user_context'] as Map<String, dynamic>? ?? {};
+    if (json['uid'] == null) {
+      throw Exception('User UID is missing');
+    }
 
     return UserModel(
       uid: json['uid'] ?? 0,
       name: json['name'] ?? '',
       username: json['username'] ?? '',
-      isInternalUser: json['is_internal_user'] ?? true,
+      isInternalUser: json['is_internal_user'] ?? false,
     );
   }
 }
