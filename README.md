@@ -346,23 +346,23 @@ cards, and other UI components throughout the application.
 
 ### Login
 
-![Login Screen](screenshots/login.png)
+![Login Screen](assets/screenshots/login.jpeg)
 
 ### Customer List
 
-![Customer List](screenshots/customers_list.png)
+![Customer List](assets/screenshots/customers_list.jpeg)
 
 ### Customer Details
 
-![Customer Details](screenshots/customer_details.png)
+![Customer Details](assets/screenshots/customer_details.jpeg)
 
 ### Sales Orders
 
-![Sales Orders](screenshots/sales_orders.png)
+![Sales Orders](assets/screenshots/sales_orders.jpeg)
 
 ### Sales Order Details
 
-![Sales Order Details](screenshots/order_details.png)
+![Sales Order Details](assets/screenshots/order_details.jpeg)
 
 ## 🔮 Future Improvements
 
