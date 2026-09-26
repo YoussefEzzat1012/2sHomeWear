@@ -346,25 +346,23 @@ cards, and other UI components throughout the application.
 
 ### Login
 
-*Add login screen screenshot here.*
+![Login Screen](screenshots/login.png)
 
 ### Customer List
 
-*Add customer list screenshot here.*
+![Customer List](screenshots/customers_list.png)
 
 ### Customer Details
 
-*Add customer details screenshot here.*
+![Customer Details](screenshots/customer_details.png)
 
 ### Sales Orders
 
-*Add sales orders screenshot here.*
+![Sales Orders](screenshots/sales_orders.png)
 
 ### Sales Order Details
 
-*Add sales order details screenshot here.*
-
----
+![Sales Order Details](screenshots/order_details.png)
 
 ## 🔮 Future Improvements
 
