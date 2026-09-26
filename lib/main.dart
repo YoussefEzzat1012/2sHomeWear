@@ -4,13 +4,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 // Core Imports
 import 'core/network/odoo_api_client.dart';
+// Data Models & Hive Adapters
+import 'core/theme/app_theme.dart';
 // Repositories
 import 'features/auth/data/repositories/auth_repository.dart';
 // Cubits / State Management
 import 'features/auth/logic/auth_cubit.dart';
 // UI Presentation
 import 'features/auth/presentation/login_screen.dart';
-// Data Models & Hive Adapters
 import 'features/customers/data/models/customer_model.dart';
 import 'features/customers/data/repositories/customer_repository.dart';
 import 'features/customers/logic/customer_cubit.dart';
@@ -72,10 +73,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Odoo Sales ERP',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-          useMaterial3: true,
-        ),
+        theme: AppTheme.lightTheme,
         home: const LoginScreen(),
       ),
     );
