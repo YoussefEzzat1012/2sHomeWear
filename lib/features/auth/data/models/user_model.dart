@@ -1,5 +1,5 @@
 class UserModel {
-  final int? uid;
+  final int uid;
   final String name;
   final String username;
   final bool isInternalUser;
@@ -17,7 +17,7 @@ class UserModel {
     }
 
     return UserModel(
-      uid: json['uid'] ?? 0,
+      uid: json['uid'] as int,
       name: json['name'] ?? '',
       username: json['username'] ?? '',
       isInternalUser: json['is_internal_user'] ?? false,
